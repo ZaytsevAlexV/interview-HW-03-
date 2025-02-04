@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сумма вхождения подстроки</title>
+</head>
+<body>
+
+<form method="POST" >
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit" >расчитать</button>
+</form>
+
+{% if sum_cnt %}
+    <br> </br>
+       Суммарное количество: {{ sum_cnt }}
+    <br> </br>
+     <form action= "{% url 'clear_result' %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Очистить" />
+        </form>
+
+    <br> </br>
+    <h2> Детальный список истории </h2>
+     <table>
+        <tr>
+            <td bgcolor="lightblue"><b>файл</b></td>
+            <td bgcolor="lightblue"><b>слово</b></td>
+            <td bgcolor="lightblue"><b>кол-во вхождений</b></td>
+        </tr>
+
+        {% for line in total_list %}
+        <tr>
+            <td>{{ line.path_file }}</td>
+            <td>{{ line.word }}</td>
+            <td>{{ line.cnt }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br> </br>
+   {% else %}
+       Суммарное количество еще не определено, введите слово
+   {% endif %}
+
+</body>
+</html>
